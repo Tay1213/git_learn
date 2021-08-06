@@ -1,0 +1,158 @@
+源代码：
+public class ByteCode {
+    public static void main(String[] args) {
+        ByteCode byteCode = new ByteCode();
+        int a = 5;
+        int b = 10;
+        int add = byteCode.add(a, b);
+        int i = byteCode.loopAdd(a, b);
+        System.out.println(add);
+        a = a++;
+    }
+
+    public int add(int a, int b){
+        return a + b;
+    }
+
+    public int loopAdd(int a, int times){
+        while (times-- > 1){
+            a += a;
+        }
+        return a;
+    }
+}
+
+字节码分析：
+Classfile /D:/ideaProject/算法/src/测试/ByteCode.class
+  Last modified 2021-8-6; size 635 bytes
+  MD5 checksum 0a3ebc8b1fe6e7d4e0ae15abe72a4c3f
+  Compiled from "ByteCode.java"
+public class 娴嬭瘯.ByteCode
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #8.#21         // java/lang/Object."<init>":()V
+   #2 = Class              #22            // 娴嬭瘯/ByteCode
+   #3 = Methodref          #2.#21         // 娴嬭瘯/ByteCode."<init>":()V
+   #4 = Methodref          #2.#23         // 娴嬭瘯/ByteCode.add:(II)I
+   #5 = Methodref          #2.#24         // 娴嬭瘯/ByteCode.loopAdd:(II)I
+   #6 = Fieldref           #25.#26        // java/lang/System.out:Ljava/io/PrintStream;
+   #7 = Methodref          #27.#28        // java/io/PrintStream.println:(I)V
+   #8 = Class              #29            // java/lang/Object
+   #9 = Utf8               <init>
+  #10 = Utf8               ()V
+  #11 = Utf8               Code
+  #12 = Utf8               LineNumberTable
+  #13 = Utf8               main
+  #14 = Utf8               ([Ljava/lang/String;)V
+  #15 = Utf8               add
+  #16 = Utf8               (II)I
+  #17 = Utf8               loopAdd
+  #18 = Utf8               StackMapTable
+  #19 = Utf8               SourceFile
+  #20 = Utf8               ByteCode.java
+  #21 = NameAndType        #9:#10         // "<init>":()V
+  #22 = Utf8               娴嬭瘯/ByteCode
+  #23 = NameAndType        #15:#16        // add:(II)I
+  #24 = NameAndType        #17:#16        // loopAdd:(II)I
+  #25 = Class              #30            // java/lang/System
+  #26 = NameAndType        #31:#32        // out:Ljava/io/PrintStream;
+  #27 = Class              #33            // java/io/PrintStream
+  #28 = NameAndType        #34:#35        // println:(I)V
+  #29 = Utf8               java/lang/Object
+  #30 = Utf8               java/lang/System
+  #31 = Utf8               out
+  #32 = Utf8               Ljava/io/PrintStream;
+  #33 = Utf8               java/io/PrintStream
+  #34 = Utf8               println
+  #35 = Utf8               (I)V
+{
+  public 娴嬭瘯.ByteCode();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=6, args_size=1
+         0: new           #2                  // class 娴嬭瘯/ByteCode, new了一个在常量池中为#2的类
+         3: dup								  // 复制栈顶元素然后压入栈，此时操作数栈中有两份一样的引用，一份用来初始化，一份用来使用	
+         4: invokespecial #3                  // Method "<init>":()V 出栈为了初始化
+         7: astore_1						  // store到局部变量表1的位置
+         8: iconst_5						  // 定义一个int型常量5，入栈
+         9: istore_2						  // 放到2的位置
+        10: bipush        10				  // b是byte的意思 从-128到127，将10压入栈中
+        12: istore_3						  // 放到3的位置
+        13: aload_1							  // 加载1到栈，也就是new的实例的引用
+        14: iload_2							  // 加载2到栈，5
+        15: iload_3							  // 加载3到栈，10
+        16: invokevirtual #4                  // Method add:(II)I 调用在常量池定义的#4方法，也就是add
+        19: istore        4					  // 然后将结果存放到4的位置，此时栈空，因为调用完了方法
+        21: aload_1							  // 
+        22: iload_2
+        23: iload_3
+        24: invokevirtual #5                  // Method loopAdd:(II)I 调用loopAdd方法
+        27: istore        5
+        29: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        32: iload         4
+        34: invokevirtual #7                  // Method java/io/PrintStream.println:(I)V
+        37: iload_2							  // 加载2位置到栈
+        38: iinc          2, 1				  // 然后在2位置自增1
+        41: istore_2						  // 栈顶存入2位置，所以自增的结果给覆盖了
+        42: return
+      LineNumberTable:
+        line 5: 0
+        line 6: 8
+        line 7: 10
+        line 8: 13
+        line 9: 21
+        line 10: 29
+        line 11: 37
+        line 12: 42
+
+  public int add(int, int);
+    descriptor: (II)I
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=3
+         0: iload_1							  // 
+         1: iload_2
+         2: iadd
+         3: ireturn
+      LineNumberTable:
+        line 15: 0
+
+  public int loopAdd(int, int);
+    descriptor: (II)I
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=3
+         0: iload_2							  // 加载2位置到栈，也就是第二个入参
+         1: iinc          2, -1				  // 2位置自增-1，就是i--
+         4: iconst_1						  // 压入常量1
+         5: if_icmple     15				  // if 栈顶小于等于栈的第二个 跳到偏移量为15的位置
+         8: iload_1
+         9: iload_1
+        10: iadd
+        11: istore_1
+        12: goto          0					  // 跳到偏移量为0的位置
+        15: iload_1
+        16: ireturn
+      LineNumberTable:
+        line 19: 0
+        line 20: 8
+        line 22: 15
+      StackMapTable: number_of_entries = 2
+        frame_type = 0 /* same */
+        frame_type = 14 /* same */
+}
+SourceFile: "ByteCode.java"
